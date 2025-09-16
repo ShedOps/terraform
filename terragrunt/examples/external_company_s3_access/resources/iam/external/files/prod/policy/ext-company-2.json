@@ -1,0 +1,22 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowAllAccessInFolder2",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": ["arn:aws:s3:::${bucket_name}/folder2/*"]
+        },
+        {
+            "Sid": "AllowListAccessInFolder2",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": ["arn:aws:s3:::${bucket_name}"],
+            "Condition":{"StringLike":{"s3:prefix":["folder2/*"]}}
+        }
+    ]
+}

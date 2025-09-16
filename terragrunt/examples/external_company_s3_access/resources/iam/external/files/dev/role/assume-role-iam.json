@@ -1,0 +1,10 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "",
+        "Effect": "Allow",
+        "Principal": {"AWS": "arn:aws:iam::${ext_account}:root"},
+        "Action": "sts:AssumeRole",
+        "Condition": {"StringEquals": {"sts:ExternalId": "${ext_id}"}}
+    }]
+}
