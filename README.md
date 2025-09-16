@@ -1,5 +1,6 @@
-## Terragrunt Based External Client Example
+## Terragrunt Based Examples
 
+### examples/external_company_s3_access
 This terragrunt based example performs the following, 
 based on a ficticious requirement to allow an external client, and specific IAM users
 varying access to S3 buckets / folders:
