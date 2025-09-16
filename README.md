@@ -3,7 +3,7 @@
 Reusable Terraform examples and patterns.
 
 ## Quick start
-- Requirements: Terraform ≥ 1.7, Terragrunt ≥ 0.57
+- Requirements: Terraform ≥ v1.13.1, Terragrunt ≥ v0.68.4
 - How to run an example: see the README inside each example folder.
 
 ## Examples
