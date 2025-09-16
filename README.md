@@ -10,4 +10,4 @@ Reusable Terraform examples and patterns.
 
 | Example | Purpose | Cloud | Notes |
 | --- | --- | --- | --- |
-| [examples/external_company_s3_access](examples/external_company_s3_access/) | Permission specific S3 bucket and folder access, incl external client | AWS | Simulates external client access |
+| [terragrunt/examples/external_company_s3_access](terragrunt/examples/external_company_s3_access/) | Permission specific S3 bucket and folder access, incl external client | AWS | Simulates external client access |
