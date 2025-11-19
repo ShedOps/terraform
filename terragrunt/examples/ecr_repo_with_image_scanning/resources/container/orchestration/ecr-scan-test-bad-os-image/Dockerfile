@@ -1,5 +1,5 @@
 # OS version directly from the AWS support matrix:
-# Ubuntu (Bionic) 18.04 (ESM) – scanned by AWS native basic + Clair basic
+# Ubuntu (Bionic) 18.04 (ESM) – scanned by AWS native basic
 FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
