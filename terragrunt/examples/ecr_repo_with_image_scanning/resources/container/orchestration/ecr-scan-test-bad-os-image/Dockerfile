@@ -1,4 +1,4 @@
-# OS version directly from your support matrix:
+# OS version directly from the AWS support matrix:
 # Ubuntu (Bionic) 18.04 (ESM) – scanned by AWS native basic + Clair basic
 FROM ubuntu:18.04
 
