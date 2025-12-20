@@ -1,6 +1,6 @@
 # ECR Scanner Lambda Function
 module "ecr_scan_function" {
-  source                                 = "../../../../../../../../terraform/tf-modules/aws/serverless/lambda"
+  source                                 = "git@github.com:ShedOps/tf-modules//aws/serverless/lambda"
 
   # Lambda function specifics
   zip_path                               = var.zip_path
