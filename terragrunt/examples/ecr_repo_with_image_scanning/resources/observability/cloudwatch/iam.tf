@@ -19,3 +19,12 @@ resource "aws_cloudwatch_log_resource_policy" "eventbridge_logs" {
     ]
   })
 }
+
+# AWS Lambda Permission to allow EventBridge to execute our lambda function
+resource "aws_lambda_permission" "eventbridge_lambda" {
+  statement_id  = "AllowExecutionFromEventBridge"
+  action        = "lambda:InvokeFunction"
+  function_name = data.terraform_remote_state.lambda.outputs.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = data.terraform_remote_state.eventbridge.outputs.ecr_scan_result_eventbridge_rule_arn
+}

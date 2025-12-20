@@ -17,3 +17,10 @@ resource "aws_cloudwatch_event_target" "ecr_scan_logs" {
   target_id         = "ECRScanLogTarget"
   arn               = aws_cloudwatch_log_group.ecr_scan_events.arn
 }
+
+# Target Lambda Function
+resource "aws_cloudwatch_event_target" "ecr_scan_lambda" {
+  rule              = data.terraform_remote_state.eventbridge.outputs.ecr_scan_result_eventbridge_rule_id
+  target_id         = "ECRScanLambdaTarget"
+  arn               = data.terraform_remote_state.lambda.outputs.arn
+}
