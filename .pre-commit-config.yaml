@@ -1,0 +1,84 @@
+---
+
+repos:
+  # --- Core hygiene ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
+        files: ^(envs/|.github/|infra/|configs/|.*\.ya?ml)$
+        args:
+          - >-
+              -d {
+                extends: default,
+                rules: {
+                  line-length: {max: 160},
+                  braces: {min-spaces-inside: 0, max-spaces-inside: 1},
+                  brackets: {min-spaces-inside: 0, max-spaces-inside: 1},
+                  comments: {level: error},
+                  comments-indentation: {level: error},
+                  empty-values: {},
+                  quoted-strings: {quote-type: single, required: true, level: warning}
+                }
+              }
+
+  # --- Terraform bundle ---
+  # We will keep the capture group for future additions
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.100.0
+    hooks:
+      - id: terraform_fmt
+        files: ^(aws)/.*\.(tf|tfvars|\.json)$
+      - id: terraform_validate
+        files: ^(aws)/.*\.(tf|tfvars|\.json)$
+      - id: terraform_tflint
+        files: ^(aws)/.*\.(tf|tfvars|\.json)$
+      # Docs generation for modules:
+      - id: terraform_docs
+        pass_filenames: false
+        # Inject output-mode ensures we don't overwrite the entire README, only between the markers
+        args: ["markdown table --recursive --output-file README.md --output-mode inject"]
+
+  # --- Security (secrets) ---
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks
+        stages: [pre-commit]  # fast; you can also add [push] for CI-only
+
+  # --- Markdown (optional) ---
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        files: ^(docs/|README\.md|CHANGELOG\.md|.*\.md)$
+
+  # --- Security (AWS Access Keys etc)
+  - repo: local
+    hooks:
+      - id: trufflehog
+        name: TruffleHog
+        description: Scan for secrets in your current changes.
+        entry: trufflehog git file://. --since-commit HEAD --only-verified --fail
+        language: system
+        stages: [pre-commit]
+        pass_filenames: false
+
+# --- Python (to add when needed) ---
+# - repo: https://github.com/astral-sh/ruff-pre-commit
+#   rev: v0.5.6
+#   hooks:
+#     - id: ruff
+#       args: [--fix]
+#       files: ^(src/|app/|.*\.py$)
+# - repo: https://github.com/pre-commit/mirrors-mypy
+#   rev: v1.11.1
+#   hooks:
+#     - id: mypy
